@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: web_app
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/webapp?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 1234567890
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

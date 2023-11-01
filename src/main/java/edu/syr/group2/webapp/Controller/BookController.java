@@ -25,19 +25,13 @@ public class BookController {
         return ResponseEntity.ok(bookService.saveBook(book));
     }
 
-    /*
-    @PostMapping("/buy/{id}")
-    public ResponseEntity<Double> buyBook(@PathVariable Long id) {
-        return ResponseEntity.ok(bookService.buyBook(id));
+    @PostMapping("/buy/{bookId}/user/{userId}")
+    public String buyBook(@PathVariable Long bookId, @PathVariable Long userId) {
+        return bookService.buyBook(userId, bookId);
     }
 
-    @PostMapping("/sell/id/{id}")
-    public ResponseEntity<Double> sellBookById(@PathVariable Long id) {
-        return ResponseEntity.ok(bookService.sellBookById(id));
+    @PostMapping("/sell/{bookId}/user/{userId}")
+    public String sellBook(@PathVariable Long bookId, @PathVariable Long userId) {
+        return bookService.sellBook(userId, bookId);
     }
-
-    @PostMapping("/sell/isbn/{isbn}")
-    public ResponseEntity<Double> sellBookByISBN(@PathVariable String isbn) {
-        return ResponseEntity.ok(bookService.sellBookByISBN(isbn));
-    }*/
 }

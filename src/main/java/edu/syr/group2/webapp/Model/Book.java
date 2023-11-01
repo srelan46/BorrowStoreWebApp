@@ -3,55 +3,58 @@ package edu.syr.group2.webapp.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 @Entity
-@Data
 @Table(name = "Books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger ID;
+    private Long bookID;
     @NotBlank
     private String ISBN;
     @NotBlank
-    private String Authors;
+    private String author;
     @NotBlank
-    private String Title;
+    private String title;
     @NotBlank
-    private String Edition;
+    private String edition;
     @NotBlank
     private double price;
     private int category;
+    @CreationTimestamp
     private LocalDateTime create_time;
+    @UpdateTimestamp
     private LocalDateTime update_time;
-    private int selled;
+    private int count;
     private int trade_count;
     public Book()
     {}
-    public Book(BigInteger ID, String ISBN, String Authors, String Title, double price,int category,
-                LocalDateTime create_time, LocalDateTime update_time,int selled,int trade_count)
+    public Book(Long bookID, String ISBN, String author, String title, String edition, double price,int category, int selled,int trade_count)
     {
         super();
-        this.ID=ID;
+        this.bookID=bookID;
         this.ISBN=ISBN;
-        this.Authors=Authors;
-        this.Title=Title;
+        this.author=author;
+        this.title=title;
+        this.edition=edition;
         this.price=price;
         this.category=category;
         this.create_time=LocalDateTime.now();
         this.update_time=LocalDateTime.now();
-        this.selled=selled;
+        this.count=selled;
         this.trade_count=trade_count;
     }
-    public BigInteger getID()
+    public Long getBookID()
     {
-        return ID;
+        return bookID;
     }
-    public void setID(BigInteger ID)
+    public void setID(Long bookID)
     {
-        this.ID=ID;
+        this.bookID=bookID;
     }
     public String getISBN()
     {
@@ -61,21 +64,21 @@ public class Book {
     {
         this.ISBN=ISBN;
     }
-    public String getAuthors()
+    public String getAuthor()
     {
-        return Authors;
+        return author;
     }
-    public void setAuthors(String Authors)
+    public void setAuthor(String author)
     {
-        this.Authors=Authors;
+        this.author=author;
     }
     public String getTitle()
     {
-        return Title;
+        return title;
     }
     public void setTitle(String Title)
     {
-        this.Title=Title;
+        this.title=title;
     }
     public double getPrice()
     {
@@ -85,14 +88,16 @@ public class Book {
     {
         this.price=price;
     }
+    public String getEdition() { return edition; }
+    public void setCategory(String category){ this.edition=edition;}
     public int getCategory() { return category; }
     public void setCategory(int category){ this.category=category;}
     public LocalDateTime getCreateTime() { return create_time;}
     public void setCreateTime(LocalDateTime create_time){this.create_time=create_time;}
     public LocalDateTime getUpdateTime() {return update_time;}
-    public void setUpdateTime(LocalDateTime create_time){this.update_time=update_time;}
-    public int getSelled() { return selled; }
-    public void setSelled(int selled){ this.selled=selled;}
-    public int getTradeCount() { return selled; }
+    public void setUpdateTime(LocalDateTime update_time){this.update_time=update_time;}
+    public int getCount() { return count; }
+    public void setCount(int count){ this.count=count;}
+    public int getTradeCount() { return count; }
     public void setTradeCount(int trade_count){ this.trade_count=trade_count;}
 }

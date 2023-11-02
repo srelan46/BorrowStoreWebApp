@@ -1,7 +1,9 @@
 package edu.syr.group2.webapp.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,8 +16,8 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookID;
-    @NotBlank
-    private String ISBN;
+    @Digits(integer = 13,fraction = 0,message = "Enter a valid 13 digit ISBN")
+    private long ISBN;
     @NotBlank
     private String author;
     @NotBlank
@@ -29,14 +31,17 @@ public class Book {
     private LocalDateTime create_time;
     @UpdateTimestamp
     private LocalDateTime update_time;
-    private int count;
+    @Builder.Default
+    private int count = 1;
     private int trade_count;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
     public Book()
     {}
-    public Book(Long bookID, String ISBN, String author, String title, String edition, double price,int category, int selled,int trade_count)
+    public Book(long ISBN, String author, String title, String edition, double price,int category, int trade_count)
     {
         super();
-        this.bookID=bookID;
         this.ISBN=ISBN;
         this.author=author;
         this.title=title;
@@ -45,7 +50,6 @@ public class Book {
         this.category=category;
         this.create_time=LocalDateTime.now();
         this.update_time=LocalDateTime.now();
-        this.count=selled;
         this.trade_count=trade_count;
     }
     public Long getBookID()
@@ -56,11 +60,11 @@ public class Book {
     {
         this.bookID=bookID;
     }
-    public String getISBN()
+    public Long getISBN()
     {
         return ISBN;
     }
-    public void setISBN(String ISBN)
+    public void setISBN(Long ISBN)
     {
         this.ISBN=ISBN;
     }

@@ -29,4 +29,13 @@ public class UserController {
     {
         return userService.createUser(user);
     }
+    @PutMapping ("/update")
+    User updateUser(@RequestBody User user)
+    {
+        return userService.updateUser(user);
+    }
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
+    }
 }

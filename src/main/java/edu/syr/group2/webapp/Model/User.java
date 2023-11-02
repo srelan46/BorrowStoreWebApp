@@ -43,7 +43,7 @@ public class User {
     @JoinTable(name = "user_books",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "bookID"))
-    private Set<Book> ownedBooks = new HashSet<>();
+    private Set<Book> ownedBooks;
 
     public User(){}
     public User(Long userID,String username,String firstname,String lastname,String email)
@@ -56,6 +56,7 @@ public class User {
         this.email=email;
         this.create_time=LocalDateTime.now();
         this.update_time=LocalDateTime.now();
+        this.ownedBooks=new HashSet<>();
     }
     public Long getuserID() {
         return userID;
@@ -84,6 +85,8 @@ public class User {
     public LocalDateTime getUpdate_time() {
         return update_time;
     }
+
+    public Set<Book> getOwnedBooks(){return ownedBooks;}
 
     // Setters
     public void setUserID(Long userID) {
@@ -114,4 +117,7 @@ public class User {
         this.update_time = update_time;
     }
 
+    public void setOwnedBooks(Set<Book> ownedBooks) {
+        this.ownedBooks = ownedBooks;
+    }
 }

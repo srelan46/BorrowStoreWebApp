@@ -124,12 +124,12 @@ public class User {
     public String toString()
     {
         return "ID: "+this.getuserID()+
-                "\nISBN: "+this.getUsername()+
-                "\nauthor: "+this.getFirstName()+
-                "\ntitle: "+this.getLastName()+
-                "\nedition: "+this.getEmail()+
+                "\nuserName: "+this.getUsername()+
+                "\nfirstName: "+this.getFirstName()+
+                "\nlastName: "+this.getLastName()+
+                "\nemail: "+this.getEmail()+
                 "\ncreate_time: "+this.getCreate_time()+
                 "\nupdate_time: "+this.getUpdate_time()+
-                "\nprice: "+this.getOwnedBooks();
+                "\nownedBooks: "+this.getOwnedBooks();
     }
 }

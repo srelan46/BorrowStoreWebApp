@@ -17,3 +17,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+webapp:
+  book:
+    max-trade: 8   # remove from the stock if a book have been trade over this many times

@@ -33,7 +33,8 @@ public class Book {
     private LocalDateTime update_time;
     @Builder.Default
     private int count = 1;
-    private int trade_count;
+    @Builder.Default
+    private int trade_count = 0;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -102,7 +103,7 @@ public class Book {
     public void setUpdateTime(LocalDateTime update_time){this.update_time=update_time;}
     public int getCount() { return count; }
     public void setCount(int count){ this.count=count;}
-    public int getTradeCount() { return count; }
+    public int getTradeCount() { return trade_count; }
     public void setTradeCount(int trade_count){ this.trade_count=trade_count;}
     @Override
     public String toString()

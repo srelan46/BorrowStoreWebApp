@@ -55,7 +55,8 @@ public class BookController {
         return bookService.sellBook(userId, bookId);
     }
     @PostMapping("/sell/user/{userId}/isbn/{ISBN}")
-    public String sellBookISBN(@PathVariable Long userId, @PathVariable Long ISBN) {
-        return bookService.sellBookISBN(userId, ISBN);
+    public String sellBookISBN(@PathVariable Long userId, @PathVariable Long ISBN,
+                               @RequestBody Book book) {
+        return bookService.sellBookISBN(userId, ISBN, book);
     }
 }

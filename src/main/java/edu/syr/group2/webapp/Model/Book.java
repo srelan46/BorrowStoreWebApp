@@ -104,4 +104,17 @@ public class Book {
     public void setCount(int count){ this.count=count;}
     public int getTradeCount() { return count; }
     public void setTradeCount(int trade_count){ this.trade_count=trade_count;}
+    @Override
+    public String toString()
+    {
+        return "ID: "+this.getBookID()+
+                "\nISBN: "+this.getISBN()+
+                "\nauthor: "+this.getAuthor()+
+                "\ntitle: "+this.getTitle()+
+                "\nedition: "+this.getEdition()+
+                "\nprice: "+this.getPrice()+
+                "\ncategory: "+this.getCategory()+
+                "\ncreate_time: "+this.getCreateTime()+
+                "\nupdate_time: "+this.getUpdateTime();
+    }
 }

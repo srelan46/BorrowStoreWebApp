@@ -1,6 +1,8 @@
 package edu.syr.group2.webapp.Service;
 
+import edu.syr.group2.webapp.Exception.BookNotFoundException;
 import edu.syr.group2.webapp.Exception.UserNotFoundException;
+import edu.syr.group2.webapp.Model.Book;
 import edu.syr.group2.webapp.Model.User;
 import edu.syr.group2.webapp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,7 @@ public class UserService {
         }
 
     public User getUser(Long id) {
-        Optional<User> u = userRepository.findById(id);
-        if(!u.isPresent())
-        {
-            throw new UserNotFoundException(id);
-        }
-        return u.get();
+        return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
     }
 
     public User createUser(User user) {
@@ -48,13 +45,9 @@ public class UserService {
         throw new UserNotFoundException(u.get().getuserID());
     }
     public String deleteUser(long id){
-        Optional<User> u = userRepository.findById(id);
-        if(!u.isPresent())
-        {
-            throw new UserNotFoundException(id);
-        }
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         userRepository.deleteById(id);
-        return "USer Deleted: " + u.get().toString();
+        return "User Deleted: " + user.toString();
     }
 }
 

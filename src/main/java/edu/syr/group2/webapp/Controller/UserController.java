@@ -13,7 +13,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
     @GetMapping("/allUsers")
     public ResponseEntity<List<User>> getAllUsers()
     {
@@ -23,7 +22,6 @@ public class UserController {
     public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
-
     @PostMapping("/create")
     public User createUser(@RequestBody User user)
     {

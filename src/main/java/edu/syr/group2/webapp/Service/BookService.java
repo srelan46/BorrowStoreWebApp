@@ -1,5 +1,6 @@
 package edu.syr.group2.webapp.Service;
 
+import edu.syr.group2.webapp.Exception.BookNotFoundException;
 import edu.syr.group2.webapp.Model.Book;
 import edu.syr.group2.webapp.Model.User;
 import edu.syr.group2.webapp.Repository.BookRepository;
@@ -20,7 +21,12 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
-    public Book getBook(long id) {return bookRepository.findById(id).orElse(null);}
+    public Book getBookById(long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+    }
+    public Book getBookByISBN(Long isbn) {
+        return bookRepository.findByISBN(isbn).orElseThrow(() -> new BookNotFoundException("ISBN",isbn));
+    }
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
@@ -31,9 +37,9 @@ public class BookService {
         return bookRepository.save(book);
     }
     public String deleteBook(long id){
-        Book b = bookRepository.findById(id).orElse(null);
+        Book b = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
         bookRepository.deleteById(id);
-    return "Book Deleted \n book details: \n"+b.toString();
+    return "Book Deleted \n"+b.toString();
     }
     public String buyBook(Long userId, Long bookId) {
         Optional<User> userOpt = userRepository.findById(userId);

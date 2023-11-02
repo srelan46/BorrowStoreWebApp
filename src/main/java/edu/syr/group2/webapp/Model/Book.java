@@ -3,6 +3,7 @@ package edu.syr.group2.webapp.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,12 +21,13 @@ public class Book {
     private long ISBN;
     @NotBlank
     private String author;
-    @NotBlank
+    @NotNull
+    @Column(name="tile")
     private String title;
     @NotBlank
     private String edition;
     @NotBlank
-    private double price;
+    private double orignalPrice;
     private int category;
     @CreationTimestamp
     private LocalDateTime create_time;
@@ -46,7 +48,7 @@ public class Book {
         this.author=author;
         this.title=title;
         this.edition=edition;
-        this.price=price;
+        this.orignalPrice=price;
         this.category=category;
         this.create_time=LocalDateTime.now();
         this.update_time=LocalDateTime.now();
@@ -56,7 +58,7 @@ public class Book {
     {
         return bookID;
     }
-    public void setID(Long bookID)
+    public void setBookID(Long bookID)
     {
         this.bookID=bookID;
     }
@@ -80,17 +82,17 @@ public class Book {
     {
         return title;
     }
-    public void setTitle(String Title)
+    public void setTitle(String title)
     {
         this.title=title;
     }
     public double getPrice()
     {
-        return price;
+        return orignalPrice;
     }
     public void setPrice(double price)
     {
-        this.price=price;
+        this.orignalPrice=price;
     }
     public String getEdition() { return edition; }
     public void setCategory(String category){ this.edition=edition;}
@@ -112,7 +114,7 @@ public class Book {
                 "\nauthor: "+this.getAuthor()+
                 "\ntitle: "+this.getTitle()+
                 "\nedition: "+this.getEdition()+
-                "\nprice: "+this.getPrice()+
+                "\norignalPrice: "+this.getPrice()+
                 "\ncategory: "+this.getCategory()+
                 "\ncreate_time: "+this.getCreateTime()+
                 "\nupdate_time: "+this.getUpdateTime();

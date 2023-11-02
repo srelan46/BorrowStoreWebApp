@@ -43,7 +43,7 @@ public class User {
     @JoinTable(name = "user_books",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "bookID"))
-    private Set<Book> ownedBooks;
+    private Set<BookCopy> ownedBooks;
 
     public User(){}
     public User(Long userID,String username,String firstname,String lastname,String email)
@@ -86,7 +86,7 @@ public class User {
         return update_time;
     }
 
-    public Set<Book> getOwnedBooks(){return ownedBooks;}
+    public Set<BookCopy> getOwnedBooks(){return ownedBooks;}
 
     // Setters
     public void setUserID(Long userID) {
@@ -117,7 +117,7 @@ public class User {
         this.update_time = update_time;
     }
 
-    public void setOwnedBooks(Set<Book> ownedBooks) {
+    public void setOwnedBooks(Set<BookCopy> ownedBooks) {
         this.ownedBooks = ownedBooks;
     }
     @Override

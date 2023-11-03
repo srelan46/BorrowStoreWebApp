@@ -38,8 +38,9 @@ public class Book {
     private LocalDateTime update_time;
     @Builder.Default
     private int count = 1;
+    /*
     @Builder.Default
-    private int trade_count=0;
+    private int trade_count=0;*/
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
@@ -60,57 +61,29 @@ public class Book {
         this.update_time=LocalDateTime.now();
         //this.trade_count=trade_count;
     }
-    public Long getBookID()
-    {
-        return bookID;
-    }
-    public void setBookID(Long bookID)
-    {
-        this.bookID=bookID;
-    }
-    public Long getISBN()
-    {
-        return ISBN;
-    }
-    public void setISBN(Long ISBN)
-    {
-        this.ISBN=ISBN;
-    }
-    public String getAuthor()
-    {
-        return author;
-    }
-    public void setAuthor(String author)
-    {
-        this.author=author;
-    }
-    public String getTitle()
-    {
-        return title;
-    }
-    public void setTitle(String title)
-    {
-        this.title=title;
-    }
-    public double getOrignalPrice()
-    {
-        return orignalPrice;
-    }
-    public void setOrignalPrice(double orignalPrice)
-    {
-        this.orignalPrice=orignalPrice;
-    }
+    //Getter Methods
+    public Long getBookID() {return bookID;}
+    public Long getISBN() {return ISBN;}
+    public String getAuthor() {return author;}
+    public String getTitle() {return title;}
+    public double getOrignalPrice() {return orignalPrice;}
     public String getEdition() { return edition; }
-    public void setCategory(String category){ this.edition=edition;}
     public int getCategory() { return category; }
-    public void setCategory(int category){ this.category=category;}
-    public LocalDateTime getCreateTime() { return create_time;}
-    public void setCreateTime(LocalDateTime create_time){this.create_time=create_time;}
-    public LocalDateTime getUpdateTime() {return update_time;}
-    public void setUpdateTime(LocalDateTime update_time){this.update_time=update_time;}
     public int getCount() { return count; }
+    public LocalDateTime getUpdateTime() {return update_time;}
+    public LocalDateTime getCreateTime() { return create_time;}
+    //Setter Methods
+    public void setBookID(Long bookID) {this.bookID=bookID;}
+    public void setISBN(Long ISBN) {this.ISBN=ISBN;}
+    public void setAuthor(String author) {this.author=author;}
+    public void setTitle(String title) {this.title=title;}
+    public void setOrignalPrice(double orignalPrice) {this.orignalPrice=orignalPrice;}
+    public void setCategory(String category){ this.edition=edition;}
+    public void setCategory(int category){ this.category=category;}
+    public void setCreateTime(LocalDateTime create_time){this.create_time=create_time;}
+    public void setUpdateTime(LocalDateTime update_time){this.update_time=update_time;}
     public void setCount(int count){ this.count=count;}
-    /*
+    /* Feature for Later, to delete books if they are traded more than 20 times.
     public int getTradeCount() { return count; }
     public void setTradeCount(int trade_count){ this.trade_count=trade_count;}*/
     @Override

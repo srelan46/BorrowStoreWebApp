@@ -94,19 +94,15 @@ public class BookService extends AbstractBookService {
         Optional<User> userOpt = userRepository.findById(userId);
         Optional<Book> bookOpt = bookRepository.findById(bookId);
         Optional<BookCopy> bookCopyOpt = bookCopyRepository.findById(bookId);
-        if(!userOpt.isPresent())
+        if(!checkIfUserAndBookExists(userOpt,bookOpt).equals(""))
         {
-            return "Failure: User not found";
-        }
-        if(!bookOpt.isPresent())
-        {
-            return "Failure: Book not found";
+            return checkIfUserAndBookExists(userOpt,bookOpt);
         }
         User user = userOpt.get();
         BookCopy bookCopy = bookCopyOpt.get();
         Book book = bookOpt.get();
         if (!bookCopy.getUserID().equals(user.getuserID())) {
-            return "Failure: User does not own this book copy";
+            return "Failure: User doesn't own this book copy";
         }
         user.getOwnedBooks().remove(bookCopy);
         bookCopy.setUser(null);
@@ -123,13 +119,9 @@ public class BookService extends AbstractBookService {
     public String sellBookISBN(Long userId, Long isbn) {
         Optional<User> userOpt = userRepository.findById(userId);
         Optional<Book> bookOpt = bookRepository.findByISBN(isbn);
-        if(!userOpt.isPresent())
+        if(!checkIfUserAndBookExists(userOpt,bookOpt).equals(""))
         {
-            return "Failure: User not found";
-        }
-        if(!bookOpt.isPresent())
-        {
-            return "Failure: Book not found";
+            return checkIfUserAndBookExists(userOpt,bookOpt);
         }
         Book book = bookOpt.get();
         User user = userOpt.get();
@@ -150,6 +142,18 @@ public class BookService extends AbstractBookService {
         bookRepository.save(book);
         userRepository.save(user);
         return "Success + Price: " + newPrice;
+    }
+    public String checkIfUserAndBookExists(Optional<User> user,Optional<Book> bookOpt)
+    {
+        if(!user.isPresent())
+        {
+            return "Failure: User not found";
+        }
+        if(!bookOpt.isPresent())
+        {
+            return "Failure: Book not found";
+        }
+        return "";
     }
 }
 

@@ -44,7 +44,6 @@ public class User {
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "bookID"))
     private Set<BookCopy> ownedBooks;
-
     public User(){}
     public User(Long userID){}
     public User(Long userID,String username,String firstname,String lastname,String email)
@@ -59,63 +58,49 @@ public class User {
         this.update_time=LocalDateTime.now();
         this.ownedBooks=new HashSet<>();
     }
+    //Getter Methods
     public Long getuserID() {return userID;}
-
     public String getUsername() {
         return username;
     }
-
     public String getFirstName() {
         return firstname;
     }
-
     public String getLastName() {
         return lastname;
     }
-
     public String getEmail() {
         return email;
     }
-
     public LocalDateTime getCreate_time() {
         return create_time;
     }
-
     public LocalDateTime getUpdate_time() {
         return update_time;
     }
-
     public Set<BookCopy> getOwnedBooks(){return ownedBooks;}
-
-    // Setters
+    // Setter Methods
     public void setUserID(Long userID) {
         this.userID = userID;
     }
-
     public void setUserName(String username) {
         this.username = username;
     }
-
     public void setFirstName(String firstname) {
         this.firstname = firstname;
     }
-
     public void setLastName(String lastname) {
         this.lastname = lastname;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public void setCreate_time(LocalDateTime create_time) {
         this.create_time = create_time;
     }
-
     public void setUpdate_time(LocalDateTime update_time) {
         this.update_time = update_time;
     }
-
     public void setOwnedBooks(Set<BookCopy> ownedBooks) {
         this.ownedBooks = ownedBooks;
     }

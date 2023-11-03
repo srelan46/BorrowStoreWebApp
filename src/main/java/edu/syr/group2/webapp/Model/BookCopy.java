@@ -48,9 +48,7 @@ public class BookCopy {
     public double getPrice() {return price;}
     public LocalDateTime getPurchaseDate() {return purchaseDate;}
     public BookStatus getStatus() {return bookStatus;}
-    public Long getUserID() {
-        return this.user.getuserID();
-    }
+    public Long getUserID() {return this.user.getuserID();}
     @Override
     public String toString()
     {

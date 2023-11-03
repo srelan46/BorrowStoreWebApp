@@ -9,8 +9,6 @@ import edu.syr.group2.webapp.Model.User;
 import edu.syr.group2.webapp.Repository.BookCopyRepository;
 import edu.syr.group2.webapp.Repository.BookRepository;
 import edu.syr.group2.webapp.Repository.UserRepository;
-import jakarta.validation.groups.Default;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class BookService extends AbstractBookService {
     }
     public Book saveBook(Book book) {
         Book savedBook = bookRepository.save(book);
-        User user = userRepository.findById(1L).orElseThrow(() -> new UserNotFoundException(1L));
+        User user = userRepository.findById(1L).orElseThrow(() -> new UserNotFoundException());
         int count = book.getCount();
         for(int i=0;i<count;i++)
         {
@@ -116,6 +114,7 @@ public class BookService extends AbstractBookService {
         bookCopy.setPrice(newPrice);
         book.setCount(book.getCount()+1);
         bookCopy.setStatus(BookStatus.AVAILABLE);
+        bookCopy.setUser(userRepository.findById(1L).orElseThrow(() -> new UserNotFoundException()));
         bookRepository.save(book);
         userRepository.save(user);
         bookCopyRepository.save(bookCopy);
@@ -140,14 +139,14 @@ public class BookService extends AbstractBookService {
         if (userBookCopies.isEmpty()) {
             return "Failure: No book copy with the given ISBN is checked out by the user";
         }
-        BookCopy bookCopyToSell = userBookCopies.get(0);
-        user.getOwnedBooks().remove(bookCopyToSell);
-        bookCopyToSell.setUser(null);
-        double newPrice = bookCopyToSell.getPrice() * 0.9;
-        bookCopyToSell.setPrice(newPrice);
-        bookCopyToSell.setStatus(BookStatus.AVAILABLE);
+        BookCopy bookCopy = userBookCopies.get(0);
+        user.getOwnedBooks().remove(bookCopy);
+        bookCopy.setUser(userRepository.findById(1L).orElseThrow(() -> new UserNotFoundException()));
+        double newPrice = bookCopy.getPrice() * 0.9;
+        bookCopy.setPrice(newPrice);
+        bookCopy.setStatus(BookStatus.AVAILABLE);
         book.setCount(book.getCount()+1);
-        bookCopyRepository.save(bookCopyToSell);
+        bookCopyRepository.save(bookCopy);
         bookRepository.save(book);
         userRepository.save(user);
         return "Success + Price: " + newPrice;

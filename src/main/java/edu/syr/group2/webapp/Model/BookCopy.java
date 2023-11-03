@@ -23,13 +23,6 @@ public class BookCopy {
     private LocalDateTime purchaseDate;
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus = BookStatus.AVAILABLE;
-    public User fetchDefaultUser() {
-        User defaultUser = new User();
-        defaultUser.setUserID(10000000000L);
-        return defaultUser;
-    }
-    public BookCopy(){this.user = fetchDefaultUser();}
-
     public void setBook(Book book) {
         this.book = book;
     }
@@ -56,11 +49,8 @@ public class BookCopy {
     public LocalDateTime getPurchaseDate() {return purchaseDate;}
     public BookStatus getStatus() {return bookStatus;}
     public Long getUserID() {
-        if (this.user != null) {
         return this.user.getuserID();
-    } else {
-        return null; // or some other appropriate value
-    }}
+    }
     @Override
     public String toString()
     {

@@ -16,22 +16,12 @@ import java.util.Optional;
 public class UserService extends AbstractUserService{
     @Autowired
     private UserRepository userRepository;
-
-    public void setDefaultUser(){
-        User user = new User(1L);
-    }
-    public User getDefaultUser() {
-        return userRepository.findById(1L).orElseThrow(()-> new UserNotFoundException(0L));
-    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
         }
-
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
     }
-
     public User createUser(User user) {
         return userRepository.save(user);
     }

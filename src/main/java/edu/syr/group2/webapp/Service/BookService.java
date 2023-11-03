@@ -43,7 +43,7 @@ public class BookService extends AbstractBookService {
         {
             BookCopy bookCopy = new BookCopy();
             bookCopy.setBook(savedBook);
-            bookCopy.setPrice(savedBook.getPrice());
+            bookCopy.setPrice(savedBook.getOrignalPrice());
             bookCopy.setPurchaseDate(LocalDateTime.now());
             bookCopy.setUser(user);
             bookCopyRepository.saveAndFlush(bookCopy);

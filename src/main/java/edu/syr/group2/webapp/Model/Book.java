@@ -58,7 +58,7 @@ public class Book {
         this.category=category;
         this.create_time=LocalDateTime.now();
         this.update_time=LocalDateTime.now();
-        this.trade_count=trade_count;
+        //this.trade_count=trade_count;
     }
     public Long getBookID()
     {
@@ -92,13 +92,13 @@ public class Book {
     {
         this.title=title;
     }
-    public double getPrice()
+    public double getOrignalPrice()
     {
         return orignalPrice;
     }
-    public void setPrice(double price)
+    public void setOrignalPrice(double orignalPrice)
     {
-        this.orignalPrice=price;
+        this.orignalPrice=orignalPrice;
     }
     public String getEdition() { return edition; }
     public void setCategory(String category){ this.edition=edition;}
@@ -110,8 +110,9 @@ public class Book {
     public void setUpdateTime(LocalDateTime update_time){this.update_time=update_time;}
     public int getCount() { return count; }
     public void setCount(int count){ this.count=count;}
+    /*
     public int getTradeCount() { return count; }
-    public void setTradeCount(int trade_count){ this.trade_count=trade_count;}
+    public void setTradeCount(int trade_count){ this.trade_count=trade_count;}*/
     @Override
     public String toString()
     {
@@ -120,7 +121,7 @@ public class Book {
                 "\nauthor: "+this.getAuthor()+
                 "\ntitle: "+this.getTitle()+
                 "\nedition: "+this.getEdition()+
-                "\nOrignalPrice: "+this.getPrice()+
+                "\nOrignalPrice: "+this.getOrignalPrice()+
                 "\ncategory: "+this.getCategory()+
                 "\ncreate_time: "+this.getCreateTime()+
                 "\nupdate_time: "+this.getUpdateTime();

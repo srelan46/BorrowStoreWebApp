@@ -89,13 +89,14 @@ public class Book {
     @Override
     public String toString()
     {
-        return "ID: "+this.getBookID()+
-                "\nISBN: "+this.getISBN()+
-                "\nauthor: "+this.getAuthor()+
-                "\ntitle: "+this.getTitle()+
-                "\nedition: "+this.getEdition()+
+        return "BookID: "+this.getBookID()+
+                "\nAuthor: "+this.getAuthor()+
+                "\nTitle: "+this.getTitle()+
+                "\nEdition: "+this.getEdition()+
                 "\nOrignalPrice: "+this.getOrignalPrice()+
-                "\ncategory: "+this.getCategory()+
+                "\nCategory: "+this.getCategory()+
+                "\nCount: "+this.getCount()+
+                "\nISBN: "+this.getISBN()+
                 "\ncreate_time: "+this.getCreateTime()+
                 "\nupdate_time: "+this.getUpdateTime();
     }

@@ -42,7 +42,7 @@ public class BookService extends AbstractBookService {
             BookCopy bookCopy = new BookCopy();
             bookCopy.setBook(savedBook);
             bookCopy.setPrice(savedBook.getOrignalPrice());
-            bookCopy.setPurchaseDate(LocalDateTime.now());
+            bookCopy.setPurchase_time(LocalDateTime.now());
             bookCopy.setUser(user);
             bookCopyRepository.saveAndFlush(bookCopy);
         }
@@ -64,13 +64,9 @@ public class BookService extends AbstractBookService {
     public String buyBook(Long userId, Long bookId) {
         Optional<User> userOpt = userRepository.findById(userId);
         Optional<Book> bookOpt = bookRepository.findById(bookId);
-        if(!userOpt.isPresent())
+        if(!checkIfUserAndBookExists(userOpt,bookOpt).equals(""))
         {
-            return "Failure: User not found";
-        }
-        if(!bookOpt.isPresent())
-        {
-            return "Failure: Book not found";
+            return checkIfUserAndBookExists(userOpt,bookOpt);
         }
         List<BookCopy> availableCopies = bookCopyRepository.findAllByBook_BookIDAndBookStatus(bookId, BookStatus.AVAILABLE);
         if(availableCopies.isEmpty()){

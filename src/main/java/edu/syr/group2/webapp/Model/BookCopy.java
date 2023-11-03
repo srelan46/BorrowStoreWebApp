@@ -20,7 +20,7 @@ public class BookCopy {
     private User user;
     @NotBlank
     private double price;
-    private LocalDateTime purchaseDate;
+    private LocalDateTime purchase_time;
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus = BookStatus.AVAILABLE;
     public void setBook(Book book) {
@@ -29,8 +29,8 @@ public class BookCopy {
     public void setPrice(double price) {
         this.price = price;
     }
-    public void setPurchaseDate(LocalDateTime purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setPurchase_time(LocalDateTime purchase_time) {
+        this.purchase_time = purchase_time;
     }
     public void setUser(User user) {
         this.user=user;
@@ -39,25 +39,25 @@ public class BookCopy {
         this.bookStatus=bookStatus;
     }
     //Getter Methods
-    public Long getCopyId(){return copyId;}
+    public Long getCopyID(){return copyId;}
     public Long getBookID() {
         return book.getBookID();
     }
     public Long getBookISBN(){return book.getISBN();}
     public String getBookTitle(){return book.getTitle();}
     public double getPrice() {return price;}
-    public LocalDateTime getPurchaseDate() {return purchaseDate;}
+    public LocalDateTime getPurchase_time() {return purchase_time;}
     public BookStatus getStatus() {return bookStatus;}
     public Long getUserID() {return this.user.getuserID();}
     @Override
     public String toString()
     {
-        return "CopyID: "+this.getCopyId()+
+        return "CopyID: "+this.getCopyID()+
                 "\nBookID: "+this.getBookID()+
                 "\nISBN: "+this.getBookISBN()+
                 "\nTitle: "+this.getBookTitle()+
                 "\nPrice: "+this.getPrice()+
-                "\nPurchaseDate: "+this.getPurchaseDate()+
+                "\nPurchaseDate: "+this.getPurchase_time()+
                 "\nStatus: "+this.getStatus()+
                 "\nUserID: "+this.getUserID();
     }

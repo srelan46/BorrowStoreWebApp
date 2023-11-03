@@ -17,5 +17,8 @@ public class LibraryExceptionHandler {
     public String handleUserNotFound(UserNotFoundException ex) {
         return ex.getMessage();
     }
+    @ExceptionHandler(BookCopyNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleBookCopyNotFound(BookCopyNotFoundException ex){return ex.getMessage();}
 }
 

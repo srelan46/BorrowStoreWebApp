@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookCopyService {
-
+public class BookCopyService extends AbstractBookCopyService{
     @Autowired
     private BookCopyRepository bookCopyRepository;
     public List<BookCopy> findAllBookCopies() {

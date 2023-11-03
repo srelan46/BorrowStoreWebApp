@@ -1,6 +1,7 @@
 package edu.syr.group2.webapp.Service;
 
 import edu.syr.group2.webapp.Exception.BookNotFoundException;
+import edu.syr.group2.webapp.Exception.UserNotFoundException;
 import edu.syr.group2.webapp.Model.Book;
 import edu.syr.group2.webapp.Model.BookCopy;
 import edu.syr.group2.webapp.Model.BookStatus;
@@ -8,18 +9,17 @@ import edu.syr.group2.webapp.Model.User;
 import edu.syr.group2.webapp.Repository.BookCopyRepository;
 import edu.syr.group2.webapp.Repository.BookRepository;
 import edu.syr.group2.webapp.Repository.UserRepository;
+import jakarta.validation.groups.Default;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class BookService {
+public class BookService extends AbstractBookService {
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -37,6 +37,7 @@ public class BookService {
     }
     public Book saveBook(Book book) {
         Book savedBook = bookRepository.save(book);
+        User user = userRepository.findById(1L).orElseThrow(() -> new UserNotFoundException(1L));
         int count = book.getCount();
         for(int i=0;i<count;i++)
         {
@@ -44,7 +45,8 @@ public class BookService {
             bookCopy.setBook(savedBook);
             bookCopy.setPrice(savedBook.getPrice());
             bookCopy.setPurchaseDate(LocalDateTime.now());
-            bookCopyRepository.save(bookCopy);
+            bookCopy.setUser(user);
+            bookCopyRepository.saveAndFlush(bookCopy);
         }
         return savedBook;
     }
@@ -55,11 +57,11 @@ public class BookService {
         return bookRepository.save(book);
     }
     public String deleteBook(Long id){
-        Book b = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
         List<BookCopy> copies = bookCopyRepository.findAllByBook_BookID(id);
         bookCopyRepository.deleteAllByIdInBatch(Collections.singleton(id));
         bookRepository.deleteById(id);
-        return "Book Deleted \n"+b.toString();
+        return "Book Deleted \n"+book.toString();
     }
     public String buyBook(Long userId, Long bookId) {
         Optional<User> userOpt = userRepository.findById(userId);
@@ -102,18 +104,14 @@ public class BookService {
         {
             return "Failure: Book not found";
         }
-
         User user = userOpt.get();
         BookCopy bookCopy = bookCopyOpt.get();
         Book book = bookOpt.get();
-
         if (!bookCopy.getUserID().equals(user.getuserID())) {
             return "Failure: User does not own this book copy";
         }
-
         user.getOwnedBooks().remove(bookCopy);
         bookCopy.setUser(null);
-        // Update the book copy's price and status
         double newPrice = bookCopy.getPrice() * 0.9;
         bookCopy.setPrice(newPrice);
         book.setCount(book.getCount()+1);
@@ -145,7 +143,7 @@ public class BookService {
         BookCopy bookCopyToSell = userBookCopies.get(0);
         user.getOwnedBooks().remove(bookCopyToSell);
         bookCopyToSell.setUser(null);
-        double newPrice = bookCopyToSell.getPrice() * 0.9; // Assuming a 10% depreciation
+        double newPrice = bookCopyToSell.getPrice() * 0.9;
         bookCopyToSell.setPrice(newPrice);
         bookCopyToSell.setStatus(BookStatus.AVAILABLE);
         book.setCount(book.getCount()+1);

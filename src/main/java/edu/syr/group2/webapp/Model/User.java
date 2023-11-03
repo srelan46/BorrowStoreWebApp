@@ -46,6 +46,7 @@ public class User {
     private Set<BookCopy> ownedBooks;
 
     public User(){}
+    public User(Long userID){}
     public User(Long userID,String username,String firstname,String lastname,String email)
     {
         super();

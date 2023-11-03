@@ -13,9 +13,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService extends AbstractUserService{
     @Autowired
     private UserRepository userRepository;
+
+    public void setDefaultUser(){
+        User user = new User(1L);
+    }
+    public User getDefaultUser() {
+        return userRepository.findById(1L).orElseThrow(()-> new UserNotFoundException(0L));
+    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();

@@ -15,22 +15,21 @@ public class BookCopy {
     @ManyToOne
     @JoinColumn(name="bookId")
     private Book book;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name="userId")
-    @Builder.Default
     private User user;
     @NotBlank
     private double price;
     private LocalDateTime purchaseDate;
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus = BookStatus.AVAILABLE;
-
-    public BookCopy(){this.user = fetchDefaultUser();}
-    private User fetchDefaultUser() {
+    public User fetchDefaultUser() {
         User defaultUser = new User();
-        defaultUser.setUserID(0L);
+        defaultUser.setUserID(10000000000L);
         return defaultUser;
     }
+    public BookCopy(){this.user = fetchDefaultUser();}
+
     public void setBook(Book book) {
         this.book = book;
     }

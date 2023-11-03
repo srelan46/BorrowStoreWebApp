@@ -58,9 +58,7 @@ public class User {
         this.update_time=LocalDateTime.now();
         this.ownedBooks=new HashSet<>();
     }
-    public Long getuserID() {
-        return userID;
-    }
+    public Long getuserID() {return userID;}
 
     public String getUsername() {
         return username;
@@ -124,12 +122,12 @@ public class User {
     public String toString()
     {
         return "ID: "+this.getuserID()+
-                "\nISBN: "+this.getUsername()+
-                "\nauthor: "+this.getFirstName()+
-                "\ntitle: "+this.getLastName()+
-                "\nedition: "+this.getEmail()+
-                "\ncreate_time: "+this.getCreate_time()+
-                "\nupdate_time: "+this.getUpdate_time()+
-                "\nprice: "+this.getOwnedBooks();
+                "\nUsername: "+this.getUsername()+
+                "\nFirstName: "+this.getFirstName()+
+                "\nLastName: "+this.getLastName()+
+                "\nEmail: "+this.getEmail()+
+                "\nCreate_time: "+this.getCreate_time()+
+                "\nUpdate_time: "+this.getUpdate_time()+
+                "\nOwnedBooks: "+this.getOwnedBooks();
     }
 }

@@ -11,6 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Books")
 public class Book {
@@ -18,7 +21,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookID;
     @Digits(integer = 13,fraction = 0,message = "Enter a valid 13 digit ISBN")
-    private long ISBN;
+    private Long ISBN;
     @NotBlank
     private String author;
     @NotNull
@@ -35,10 +38,13 @@ public class Book {
     private LocalDateTime update_time;
     @Builder.Default
     private int count = 1;
-    private int trade_count;
+    @Builder.Default
+    private int trade_count=0;
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookCopy> copies;
     public Book()
     {}
     public Book(long ISBN, String author, String title, String edition, double price,int category, int trade_count)
@@ -114,7 +120,7 @@ public class Book {
                 "\nauthor: "+this.getAuthor()+
                 "\ntitle: "+this.getTitle()+
                 "\nedition: "+this.getEdition()+
-                "\norignalPrice: "+this.getPrice()+
+                "\nOrignalPrice: "+this.getPrice()+
                 "\ncategory: "+this.getCategory()+
                 "\ncreate_time: "+this.getCreateTime()+
                 "\nupdate_time: "+this.getUpdateTime();

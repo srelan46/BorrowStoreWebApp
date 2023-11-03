@@ -11,4 +11,6 @@ import java.util.Optional;
 
 public interface BookCopyRepository extends JpaRepository<BookCopy,Long> {
     List<BookCopy> findAllByBook_BookIDAndBookStatus(Long bookId, BookStatus bookStatus);
+
+    List<BookCopy> findAllByBook_BookID(Long bookId);
 }

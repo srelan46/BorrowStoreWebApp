@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
-    public Book getBookById(long id) {
+    public Book getBookById(Long id) {
         return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
     public Book getBookByISBN(Long isbn) {
@@ -53,10 +54,12 @@ public class BookService {
     public Book updateBook(Book book) {
         return bookRepository.save(book);
     }
-    public String deleteBook(long id){
+    public String deleteBook(Long id){
         Book b = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        List<BookCopy> copies = bookCopyRepository.findAllByBook_BookID(id);
+        bookCopyRepository.deleteAllByIdInBatch(Collections.singleton(id));
         bookRepository.deleteById(id);
-    return "Book Deleted \n"+b.toString();
+        return "Book Deleted \n"+b.toString();
     }
     public String buyBook(Long userId, Long bookId) {
         Optional<User> userOpt = userRepository.findById(userId);
@@ -133,14 +136,12 @@ public class BookService {
         }
         Book book = bookOpt.get();
         User user = userOpt.get();
-        List<BookCopy> userBookCopies = user.getOwnedBooks().stream()
-                .filter(bookCopy -> bookCopy.getBook().getISBN().equals(isbn))
-                .collect(Collectors.toList());
-
+            List<BookCopy> userBookCopies = user.getOwnedBooks().stream()
+                    .filter(bookCopy -> bookCopy.getBookISBN().equals(isbn))
+                    .collect(Collectors.toList());
         if (userBookCopies.isEmpty()) {
             return "Failure: No book copy with the given ISBN is checked out by the user";
         }
-
         BookCopy bookCopyToSell = userBookCopies.get(0);
         user.getOwnedBooks().remove(bookCopyToSell);
         bookCopyToSell.setUser(null);
